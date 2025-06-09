@@ -25,11 +25,12 @@ class View(ft.UserControl):
         # self._page.controls.append(self._title)
 
         self._ddAnno = ft.Dropdown(label="Anno", width=200, alignment=ft.alignment.top_left)
+        self._controller.fill_DD()
 
         row1 = ft.Row([ft.Container(self._title, width=500),
                        ft.Container(None, width=0),
                        ft.Container(self._ddAnno, width=250)], alignment=ft.MainAxisAlignment.CENTER)
-        self._txtOutSquadre = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=False)
+        self._txtOutSquadre = ft.ListView(expand=1, spacing=10, padding=20)
         cont = ft.Container(self._txtOutSquadre, width=300, height= 200, alignment=ft.alignment.top_left, bgcolor="#deeded")
         self._btnCreaGrafo = ft.ElevatedButton(text="Crea Grafo", on_click=self._controller.handleCreaGrafo)
         row2 = ft.Row([cont, self._btnCreaGrafo], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.END)
@@ -44,9 +45,6 @@ class View(ft.UserControl):
         self._page.controls.append(row1)
         self._page.controls.append(row2)
         self._page.controls.append(row3)
-
-        for i in range(0,200):
-            self._txtOutSquadre.controls.append(ft.Text(f"Squadra {i}"))
 
         self._txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self._page.controls.append(ft.Container(self._txt_result, bgcolor="#deeded", height=350))
@@ -64,4 +62,10 @@ class View(ft.UserControl):
         self._controller = controller
 
     def update_page(self):
+        self._page.update()
+
+    def create_alert(self, message):
+        dlg = ft.AlertDialog(title=ft.Text(message))
+        self._page.dialog = dlg
+        dlg.open = True
         self._page.update()
