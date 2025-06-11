@@ -1,4 +1,5 @@
 import copy
+import itertools
 
 import networkx as nx
 from database.DAO import DAO
@@ -21,6 +22,10 @@ class Model:
 
         self._graph.add_nodes_from(self._teams)
         print(self._graph.number_of_nodes())
+
+        # Aggiungo un arco per ogni combinazione di nodi
+        myedges = list(itertools.combinations(self.list_with_nodes, 2)) # restituisce una lista di tuple con tutte le combinazioni dei nodi
+        self._grafo.add_edges_from(myedges)
 
         allEdges = DAO.getEdges(int(year))
         for edge in allEdges:
