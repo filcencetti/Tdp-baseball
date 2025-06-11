@@ -23,10 +23,6 @@ class Model:
         self._graph.add_nodes_from(self._teams)
         print(self._graph.number_of_nodes())
 
-        # Aggiungo un arco per ogni combinazione di nodi
-        myedges = list(itertools.combinations(self.list_with_nodes, 2)) # restituisce una lista di tuple con tutte le combinazioni dei nodi
-        self._grafo.add_edges_from(myedges)
-
         allEdges = DAO.getEdges(int(year))
         for edge in allEdges:
             self._graph.add_edge(self._idMap[edge[0]], self._idMap[edge[1]], weight=edge[2])
